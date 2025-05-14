@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { axiosInstance } from "@/lib/axios";
 import toast from "react-hot-toast";
 
-const useTodoStore = create((set, get) => ({
+export const useTodoStore = create((set, get) => ({
   todos: [],
   isLoading: false,
 

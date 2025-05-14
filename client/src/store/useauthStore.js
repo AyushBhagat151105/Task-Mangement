@@ -32,7 +32,7 @@ export const useAuthStore = create((set) => ({
 
       set({ authUser: res.data });
 
-      toast.success("Loging successfull");
+      toast.success(res.data.message);
     } catch (error) {
       console.log("Error in Login", error);
       toast.error("Error in Checking user");
@@ -49,6 +49,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: res.data.user });
 
       toast.success(res.data.message);
+      toast.success("Verification has been send...");
     } catch (error) {
       console.log("Error signing up", error);
       toast.error("Error signing up");
@@ -62,6 +63,16 @@ export const useAuthStore = create((set) => ({
       await axiosInstance.post("/auth/logout");
       set({ authUser: null });
       toast.success("Logout successful");
+    } catch (error) {
+      console.log("Error logging out", error);
+      toast.error("Error logging out");
+    }
+  },
+
+  verifyemail: async (token) => {
+    try {
+      await axiosInstance.post(`/auth/verify-email/${token}`);
+      toast.success("verify-email successful");
     } catch (error) {
       console.log("Error logging out", error);
       toast.error("Error logging out");

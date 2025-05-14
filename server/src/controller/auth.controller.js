@@ -41,7 +41,18 @@ export const register = asyncHandler(async (req, res) => {
   const link = `${process.env.CLIENT_URL}/verify/${token}`;
   const mail = new MailTrap(email);
 
-  mail.sendMail(`Your Account Verification Link: ${link}`);
+  mail.sendMail(`
+  <div style="font-family: sans-serif; padding: 20px; line-height: 1.6;">
+    <h2>Verify Your Email 📧</h2>
+    <p>Thanks for signing up! Please click the button below to verify your email address:</p>
+    <a href="${link}" 
+       style="display:inline-block; padding: 10px 20px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 4px;">
+       Verify Email
+    </a>
+    <p style="margin-top: 20px;">If the button above doesn’t work, copy and paste this link into your browser:</p>
+    <p>${link}</p>
+  </div>
+`);
 
   return res
     .status(200)
@@ -81,7 +92,18 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 
   const mail = new MailTrap(user.email);
 
-  mail.sendMail(`Your Account is Verified`);
+  mail.sendMail(`
+  <div style="font-family: sans-serif; padding: 20px; line-height: 1.6;">
+    <h2>Email Verified Successfully ✅</h2>
+    <p>Hi ${user.name || "there"},</p>
+    <p>Your email has been verified! You can now log in and start using your account.</p>
+    <a href="${process.env.CLIENT_URL}/login" 
+       style="display:inline-block; padding: 10px 20px; background-color: #22C55E; color: white; text-decoration: none; border-radius: 4px;">
+       Go to Login
+    </a>
+    <p style="margin-top: 20px;">Thank you for joining us!</p>
+  </div>
+`);
 
   return res
     .status(200)

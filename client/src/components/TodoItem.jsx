@@ -11,11 +11,24 @@ function TodoItem({ todo }) {
     updateTodoStatus({ status: newStatus }, todo.id);
   };
 
+  const isCompleted = todo.status === "COMPLETED";
+
   return (
-    <li className="flex justify-between items-center border p-3 rounded mb-2">
+    <li
+      className={`flex justify-between items-center border p-3 rounded mb-2 ${
+        isCompleted ? "bg-green-100" : "bg-yellow-100"
+      }`}
+    >
       <div>
-        <h3 className="font-medium">{todo.title}</h3>
-        <p className="text-sm text-gray-500">{todo.status}</p>
+        <h3 className="font-medium text-lg">{todo.title}</h3>
+        <p className="text-sm text-gray-700 mb-1">{todo.description}</p>
+        <span
+          className={`text-xs font-semibold px-2 py-1 rounded-full ${
+            isCompleted ? "bg-green-600 text-white" : "bg-yellow-600 text-white"
+          }`}
+        >
+          {todo.status.toUpperCase()}
+        </span>
       </div>
       <div className="flex gap-2">
         <Button onClick={handleToggle} variant="outline">

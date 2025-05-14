@@ -9,7 +9,6 @@ import { MailTrap } from "../utils/mail.js";
 import { generateAccessTokenAndRefreshToken } from "../utils/jwtToken.js";
 import { options } from "../utils/cookiesOptions.js";
 
-
 export const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -39,7 +38,7 @@ export const register = asyncHandler(async (req, res) => {
     throw new ApiError(500, "User not created");
   }
 
-  const link = `${process.env.CLIENT_URL}/auth/verify/${token}`;
+  const link = `${process.env.CLIENT_URL}/verify/${token}`;
   const mail = new MailTrap(email);
 
   mail.sendMail(`Your Account Verification Link: ${link}`);

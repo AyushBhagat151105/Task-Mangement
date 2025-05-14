@@ -11,7 +11,7 @@ export const useTodoStore = create((set, get) => ({
     try {
       const res = await axiosInstance.get("/todo/");
 
-      set({ todos: res.data });
+      set({ todos: res.data.data.todos });
       toast.success(res.data.message);
     } catch (error) {
       console.log("Todo Fetching error:- ", error);
@@ -54,7 +54,10 @@ export const useTodoStore = create((set, get) => ({
   updateTodoStatus: async (data, id) => {
     set({ isLoading: true });
     try {
+      console.log(data);
+
       const res = await axiosInstance.patch(`/todo/updatestatus/${id}`, data);
+      console.log(res);
 
       toast.success(res.data.message);
       await get().fetchTodos();

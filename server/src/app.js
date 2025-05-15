@@ -22,9 +22,11 @@ app.use(express.static("src/public"));
 // APP MAIN ROUTES
 import { authRouter } from "./routes/auth.routes.js";
 import { todoRouter } from "./routes/todo.routes.js";
+import { dashboardRouter } from "./routes/dashboard.routes.js";
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/todo", todoRouter);
+app.use("/api/v1/dashboard", dashboardRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

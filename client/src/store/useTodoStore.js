@@ -12,7 +12,7 @@ export const useTodoStore = create((set, get) => ({
       const res = await axiosInstance.get("/todo/");
 
       set({ todos: res.data.data.todos });
-      toast.success(res.data.message);
+      // toast.success(res.data.message);
     } catch (error) {
       console.log("Todo Fetching error:- ", error);
       set({ isLoading: false });

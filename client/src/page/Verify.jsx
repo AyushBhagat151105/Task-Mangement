@@ -15,6 +15,7 @@ export default function Verify() {
       try {
         await verifyemail(token);
         setStatus("success");
+
         setTimeout(() => navigate("/login"), 2000);
       } catch (error) {
         setStatus("error");

@@ -18,7 +18,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: res.data });
     } catch (error) {
       console.log("Error in checking auth", error);
-      toast.error("Error in Checking user");
+      toast.error("Not Logedin");
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
@@ -35,7 +35,7 @@ export const useAuthStore = create((set) => ({
       toast.success(res.data.message);
     } catch (error) {
       console.log("Error in Login", error);
-      toast.error("Error in Checking user");
+      toast.error("Email or Password wrong");
     } finally {
       set({ isLoggingIn: false });
     }

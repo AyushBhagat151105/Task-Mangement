@@ -15,17 +15,23 @@ function TodoItem({ todo }) {
 
   return (
     <li
-      className={`flex justify-between items-center border p-3 rounded mb-2 ${
-        isCompleted ? "bg-green-100" : "bg-yellow-100"
-      }`}
+      className={`flex justify-between items-center border p-3 rounded mb-2 bg-[--color-card] text-[--color-foreground] border-[--color-border]`}
     >
       <div>
         <h3 className="font-medium text-lg">{todo.title}</h3>
-        <p className="text-sm text-gray-700 mb-1">{todo.description}</p>
+        <p className="text-sm text-[--color-muted-foreground] mb-1">
+          {todo.description}
+        </p>
         <span
-          className={`text-xs font-semibold px-2 py-1 rounded-full ${
-            isCompleted ? "bg-green-600 text-white" : "bg-yellow-600 text-white"
-          }`}
+          className="text-xs font-semibold px-2 py-1 rounded-full"
+          style={{
+            backgroundColor: isCompleted
+              ? "var(--color-status-completed-bg)"
+              : "var(--color-status-pending-bg)",
+            color: isCompleted
+              ? "var(--color-status-completed-text)"
+              : "var(--color-status-pending-text)",
+          }}
         >
           {todo.status.toUpperCase()}
         </span>

@@ -11,14 +11,19 @@ export const getTodosStatus = asyncHandler(async (req, res) => {
     select: { status: true },
   });
 
-  const status = todos.reduce((acc, todo) => {
+  const statusMap = todos.reduce((acc, todo) => {
     acc[todo.status] = (acc[todo.status] || 0) + 1;
     return acc;
   }, {});
 
+  const statusArray = Object.entries(statusMap).map(([name, value]) => ({
+    name,
+    value,
+  }));
+
   return res
     .status(200)
-    .json(new ApiResponse(200, "Todo status stats fetched", status));
+    .json(new ApiResponse(200, "Todo status stats fetched", statusArray));
 });
 
 export const getTodosOverTime = asyncHandler(async (req, res) => {
@@ -29,17 +34,23 @@ export const getTodosOverTime = asyncHandler(async (req, res) => {
     select: { createdAt: true },
   });
 
-  const stats = {};
+  const timeMap = {};
 
   todos.forEach((todo) => {
     const date = dayjs(todo.createdAt).format("YYYY-MM-DD");
-    stats[date] = (stats[date] || 0) + 1;
+    timeMap[date] = (timeMap[date] || 0) + 1;
   });
+
+  const timeArray = Object.entries(timeMap).map(([date, value]) => ({
+    date,
+    value,
+  }));
 
   return res
     .status(200)
-    .json(new ApiResponse(200, "Todo over time fetched", stats));
+    .json(new ApiResponse(200, "Todo over time fetched", timeArray));
 });
+
 
 export const getCompletionRate = asyncHandler(async (req, res) => {
   const userId = req.user_id;

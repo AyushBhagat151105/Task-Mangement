@@ -7,12 +7,11 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 
-# Copy Prisma schema and generate client
-COPY prisma ./prisma
-RUN npx prisma generate
-
-# Copy the rest of the application code
+# Copy all application files (including .env if present)
 COPY . .
+
+# Generate Prisma client AFTER copying all files
+RUN npx prisma generate
 
 # Expose the application's port
 EXPOSE 3000

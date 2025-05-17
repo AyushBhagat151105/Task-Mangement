@@ -1,4 +1,6 @@
 export const options = {
-    httpOnly: true, // The cookie only accessible by the web server
-    secure: true,
-  };
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 24 * 60 * 60 * 1000,
+};

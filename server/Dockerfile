@@ -1,12 +1,11 @@
-# Base image
 FROM node:18
 
 # Set working directory
 WORKDIR /app
 
 # Install dependencies
-COPY package*.json ./
-RUN npm ci
+COPY package.json ./
+RUN npm install
 
 # Copy Prisma schema and generate client
 COPY prisma ./prisma
